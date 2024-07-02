@@ -30,8 +30,12 @@ RUN sudo dpkg -i "tenv_${TENV_VERSION}_amd64.deb"
 
 # - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+RUN curl -sSL https://sdk.cloud.google.com | bash
 
 # - Set up Git
 RUN git config --global user.name "Ivan Lee"
 RUN git config --global user.email "ivanklee86@gmail.com"
 RUN git config --global push.autoSetupRemote true
+
+# - Set up PATH
+ENV PATH $PATH:/home/vscode/google-cloud-sdk/bin
