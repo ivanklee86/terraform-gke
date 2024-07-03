@@ -4,6 +4,9 @@ set -ex
 # Install OpenTofu version
 tenv tofu install
 
+# Tweak git configs
+git config --global push.autoSetupRemote true
+
 # Set up GPG if not codespaces
 if [ "$CODESPACES" != "true" ]; then
     echo "Running locally, configure gpg."
