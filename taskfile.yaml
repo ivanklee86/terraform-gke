@@ -1,0 +1,25 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  auth:
+    desc: Authenticate to gcloud
+    cmds:
+      - gcloud auth login
+  
+  config:
+    desc: Configure applications
+    cmds:
+      - gcloud config set project hamster-sandbox-428309
+  
+  fmt:
+    desc: Formats code
+    cmds:
+      - tofu fmt -recursive
+      - go fmt tests
+
+  test:
+    desc: Test Terraform modules.
+    dir: tests
+    cmds:
+      - go test -v -timeout 30s
