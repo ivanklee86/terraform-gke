@@ -28,6 +28,9 @@ ARG TENV_VERSION="v2.2.1"
 RUN curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${TENV_VERSION}_amd64.deb"
 RUN sudo dpkg -i "tenv_${TENV_VERSION}_amd64.deb"
 
+# - Install tools with go
+RUN go install github.com/terraform-docs/terraform-docs@v0.18.0
+
 # - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 RUN curl -sSL https://sdk.cloud.google.com | bash
