@@ -6,7 +6,7 @@ resource "google_service_account" "cluster_default" {
 
 resource "google_container_cluster" "cluster" {
   name     = var.name
-  project = var.project
+  project  = var.project
   location = var.region
 
   # Start with 0 nodes and delete in favor of node pools.

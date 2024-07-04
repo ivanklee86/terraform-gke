@@ -11,30 +11,30 @@ variable "project" {
 
 # VPC
 variable "cidr_range" {
-  type = string
+  type        = string
   description = "CIDR range for VPC."
-  default = "10.2.0.0/16"
+  default     = "10.2.0.0/16"
 }
 
 variable "services_range" {
-  type = string
+  type        = string
   description = "CIDR range for VPC."
-  default = "192.168.0.0/24"
+  default     = "192.168.0.0/24"
 }
 
 variable "pods_range" {
-  type = string
+  type        = string
   description = "CIDR range for VPC."
-  default = "192.168.64.0/22"
+  default     = "192.168.64.0/22"
 }
 
 variable "subnets" {
   type = list(object({
-    name = string
+    name       = string
     cidr_range = string
   }))
   description = "Additional subnets for VPC."
-  default = []
+  default     = []
 }
 
 # EKS

@@ -1,0 +1,10 @@
+content: |-
+  # **terraform-gke** module
+
+  {{ include "../instructions.md" }}
+
+  {{ .Inputs }}
+  {{ .Outputs }}
+  {{ .Providers }}
+  {{ .Requirements }}
+  {{ .Resources }}

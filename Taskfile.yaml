@@ -26,3 +26,8 @@ tasks:
     cmds:
       - gcloud components install gke-gcloud-auth-plugin
       - gcloud container clusters get-credentials test --region us-central1
+
+  docs:
+    desc: Generate module documentation
+    cmds:
+      - terraform-docs markdown module > README.md
