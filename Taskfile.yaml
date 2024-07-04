@@ -5,21 +5,24 @@ tasks:
   auth:
     desc: Authenticate to gcloud
     cmds:
-      - gcloud auth login
-  
-  config:
-    desc: Configure applications
-    cmds:
       - gcloud config set project hamster-sandbox-428309
+      - gcloud auth login
+      - gcloud auth application-default login
   
   fmt:
     desc: Formats code
     cmds:
       - tofu fmt -recursive
-      - go fmt tests
+      - cd tests; go fmt tests
 
   test:
     desc: Test Terraform modules.
     dir: tests
     cmds:
       - go test -v -timeout 30s
+
+  kubeconfig:
+    desc: Generate kubeconfig
+    cmds:
+      - gcloud components install gke-gcloud-auth-plugin
+      - gcloud container clusters get-credentials test --region us-central1

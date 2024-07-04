@@ -22,9 +22,10 @@ RUN sudo chown -R vscode /usr/local/bin
 # - Install tools from Docker
 COPY --from=bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
 COPY --from=alpine/helm /usr/bin/helm /usr/local/bin
+COPY --from=derailed/k9s /bin/k9s /usr/local/bin
 
 # - Install tenv
-ARG TENV_VERSION="v2.2.1"
+ARG TENV_VERSION="v2.3.0"
 RUN curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${TENV_VERSION}_amd64.deb"
 RUN sudo dpkg -i "tenv_${TENV_VERSION}_amd64.deb"
 

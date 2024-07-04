@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: hamsterwheel
+  name: hamsterwheel
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: hamsterwheel
+  template:
+    metadata:
+      labels:
+        run: hamsterwheel
+    spec:
+      containers:
+      - args:
+        - /bin/bash
+        image: ubuntu
+        imagePullPolicy: Always
+        name: hamsterwheel
+        resources: {}
+        stdin: true
+        tty: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
