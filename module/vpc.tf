@@ -1,15 +1,14 @@
+# - VPC network
 resource "google_compute_network" "network" {
-  project                 = var.project
   name                    = "${var.name}-vpc"
   auto_create_subnetworks = false
   routing_mode            = "GLOBAL"
 }
 
+# - Subnet for Kubernetes with service/pod IP ranges
 resource "google_compute_subnetwork" "k8s_subnet" {
   name                     = var.name
-  project                  = var.project
   ip_cidr_range            = var.cidr_range
-  region                   = var.region
   network                  = google_compute_network.network.id
   private_ip_google_access = true
   secondary_ip_range {
@@ -23,20 +22,20 @@ resource "google_compute_subnetwork" "k8s_subnet" {
   }
 }
 
+# - Additional subnetworks
 resource "google_compute_subnetwork" "additional_subnetworks" {
   for_each = { for each in var.subnets : each.name => each }
 
   name                     = each.value.name
-  project                  = var.project
   ip_cidr_range            = each.value.cidr_range
-  region                   = var.region
   network                  = google_compute_network.network.id
   private_ip_google_access = true
 }
 
+# - Firewall Rules
+# Only simple rule for troubleshooting, otherwise no access.
 resource "google_compute_firewall" "firewall" {
   name    = "${var.name}-firewall"
-  project = var.project
   network = google_compute_network.network.name
 
   source_ranges = [

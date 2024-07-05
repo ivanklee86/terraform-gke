@@ -18,7 +18,7 @@ spec:
       containers:
       - args:
         - /bin/bash
-        image: ubuntu
+        image: nicolaka/netshoot
         imagePullPolicy: Always
         name: hamsterwheel
         resources: {}

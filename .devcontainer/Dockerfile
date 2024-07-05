@@ -43,3 +43,6 @@ RUN git config --global push.autoSetupRemote true
 
 # - Set up PATH
 ENV PATH $PATH:/home/vscode/google-cloud-sdk/bin
+
+# - Modify dotfiles
+RUN echo 'alias k=kubectl' >> ~/.bashrc

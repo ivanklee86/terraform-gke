@@ -24,7 +24,7 @@ variable "services_range" {
 
 variable "pods_range" {
   type        = string
-  description = "CIDR range for VPC."
+  description = "CIDR range for VPC. Should contain (2 x max # of pods (110) x max # of nodes) IPs."
   default     = "192.168.64.0/22"
 }
 
@@ -34,13 +34,18 @@ variable "subnets" {
     cidr_range = string
   }))
   description = "Additional subnets for VPC."
-  default     = []
 }
 
 # EKS
 variable "region" {
   type        = string
   description = "Region to launch resources in"
+}
+
+variable "deletion_protection" {
+  type        = bool
+  default     = true
+  description = "Set to false before deleting cluster"
 }
 
 variable "node_pool" {

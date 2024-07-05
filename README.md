@@ -1,5 +1,11 @@
 # **terraform-gke** module
 
+This repository contains...
+- ...a Terraform module to create a GCP Kubernetes Engine cluster and accoutrement in the `modules` folder.
+- ...an example usage in the `examples` folder.
+- ...a [`devcontainer`](https://containers.dev/) with necessary (or just helpful) tooling.
+- ...a [Taskfile](https://taskfile.dev/) that automates common tasks.
+
 ## Pre-requisites
 
 1. Clone the repository.
@@ -10,15 +16,19 @@
     docker run -it --entrypoint bash -v `pwd`:/code devcontainer:latest
     ```
 3. Run `task auth` to authenticate to GCP. 
-    - **[SHOULD]** You should update the project to the one you're using for testing.
+    - **[SHOULD]** You should update the PROJECT_ID env variable (either via shell, CLI or by eiting the file).
 
 ## Plaing around with the module.
 1. Go to the `examples` folder and update the example configuration.
-    - [SHOULD] Update where or how you're storing your Terraform remote state.
+    - **[SHOULD]** Update where or how you're storing your Terraform remote state.
     - [CAN] Update default variables
 2. Run `tofu plan -out=plan.tfplan` to generate plan.
 3. Run `tofu apply plan.tfplan` to apply.
 4. Run `task kubeconfig` to set up kubeconfig.
+
+## Cleaning up
+1. Set the `deletion_protection` variable to `false` and apply changes.
+2. Run `tofu destroy`.
 
 ## Testing out the k8s cluster
 - `kubectl apply -f manifests/hamsterwheel.yaml` will create a silly simple pod.
@@ -29,13 +39,14 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cidr_range"></a> [cidr\_range](#input\_cidr\_range) | CIDR range for VPC. | `string` | `"10.2.0.0/16"` | no |
+| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Set to false before deleting cluster | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Terraform stack name. | `string` | n/a | yes |
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | Configuration for subnetworks.  Note: name var should match subnet name | <pre>list(object({<br>    name                  = string<br>    service_account_email = optional(string)<br>    machine_type          = string<br>    min_nodes             = number<br>    max_nodes             = number<br>  }))</pre> | n/a | yes |
-| <a name="input_pods_range"></a> [pods\_range](#input\_pods\_range) | CIDR range for VPC. | `string` | `"192.168.64.0/22"` | no |
+| <a name="input_pods_range"></a> [pods\_range](#input\_pods\_range) | CIDR range for VPC. Should contain (2 x max # of pods (110) x max # of nodes) IPs. | `string` | `"192.168.64.0/22"` | no |
 | <a name="input_project"></a> [project](#input\_project) | GCP Project to create resources in. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Region to launch resources in | `string` | n/a | yes |
 | <a name="input_services_range"></a> [services\_range](#input\_services\_range) | CIDR range for VPC. | `string` | `"192.168.0.0/24"` | no |
-| <a name="input_subnets"></a> [subnets](#input\_subnets) | Additional subnets for VPC. | <pre>list(object({<br>    name       = string<br>    cidr_range = string<br>  }))</pre> | `[]` | no |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | Additional subnets for VPC. | <pre>list(object({<br>    name       = string<br>    cidr_range = string<br>  }))</pre> | n/a | yes |
 ## Outputs
 
 No outputs.
