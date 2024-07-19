@@ -31,3 +31,4 @@ This repository contains...
 ## Testing out the k8s cluster
 - `kubectl apply -f manifests/hamsterwheel.yaml` will create a silly simple pod.
 - [k9s](https://k9scli.io/) is included in the image for troubleshooting.
+
